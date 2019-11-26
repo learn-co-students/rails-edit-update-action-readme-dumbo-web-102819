@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+
   def index
     @articles = Article.all
   end
@@ -16,8 +17,18 @@ class ArticlesController < ApplicationController
     @article.title = params[:title]
     @article.description = params[:description]
     @article.save
-    redirect_to article_path(@article)
+    redirect_to articles_path(@article)
   end
 
-  # add edit and update methods here
+  def edit
+    byebug
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    @article = Article.find(params[:id])
+    @article.update(title: params[:article][:title], description: params[:article][:description])
+    redirect_to articles_path(@article)
+  end
+
 end
